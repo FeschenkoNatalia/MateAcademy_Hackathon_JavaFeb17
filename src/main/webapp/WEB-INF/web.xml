@@ -5,9 +5,13 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
 
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+                        /WEB-INF/dispatcher-servlet.xml
+        </param-value>
+    </context-param>
 
         <servlet>
             <servlet-name>dispatcher</servlet-name>
