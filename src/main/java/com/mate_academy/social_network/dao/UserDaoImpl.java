@@ -5,7 +5,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
+
+@Repository
+@Transactional
 public class UserDaoImpl implements UserDao {
 
     @Autowired
@@ -25,6 +30,14 @@ public class UserDaoImpl implements UserDao {
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
         query.setString("name", user.getUsername());
         query.setString("password", user.getPassword());
+        return (User) query.uniqueResult();
+    }
+
+    @Override
+    public User getUserByName(String name) {
+        String hql = "from User where username = :name";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setString("name", name);
         return (User) query.uniqueResult();
     }
 }
