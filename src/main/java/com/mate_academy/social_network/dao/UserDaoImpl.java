@@ -1,6 +1,7 @@
 package com.mate_academy.social_network.dao;
 
 import com.mate_academy.social_network.model.User;
+import com.mate_academy.social_network.service.UserService;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
