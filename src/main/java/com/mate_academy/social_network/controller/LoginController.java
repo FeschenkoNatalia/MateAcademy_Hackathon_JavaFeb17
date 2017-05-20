@@ -1,5 +1,6 @@
 package com.mate_academy.social_network.controller;
 
+import com.mate_academy.social_network.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
