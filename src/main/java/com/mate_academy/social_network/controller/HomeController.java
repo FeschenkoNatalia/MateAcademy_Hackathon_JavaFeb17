@@ -24,7 +24,7 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String home(@ModelAttribute("user") User user,
-                        Model model){
+                       Model model){
         User existingUser = userService.getUser(user);
         if(existingUser != null) {
             model.addAttribute("user", existingUser);

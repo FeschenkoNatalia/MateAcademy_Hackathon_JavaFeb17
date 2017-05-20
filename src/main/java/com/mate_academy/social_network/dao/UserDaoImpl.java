@@ -26,6 +26,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User addFriend(User user) {
+        String hql = "from Friends where status=true";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        return (User) query.uniqueResult();
+    }
+
+
+    @Override
     public User getUser(User user) {
         String hql = "from User where username = :name and password = :password";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
