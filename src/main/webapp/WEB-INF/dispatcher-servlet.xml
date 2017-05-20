@@ -38,7 +38,7 @@
 
         <property name="packagesToScan">
             <list>
-                <value>com.mate_academy</value>
+                <value>com.mate_academy.social_network</value>
             </list>
         </property>
 
@@ -52,6 +52,7 @@
     <mvc:annotation-driven/>
     <tx:annotation-driven/>
     <context:component-scan base-package="com.mate_academy.social_network.*"/>
+
 
     <bean id="defaultWebSecurityExpressionHandler"
           class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>

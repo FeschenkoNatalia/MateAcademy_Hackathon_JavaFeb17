@@ -1,5 +1,6 @@
 package com.mate_academy.social_network.controller;
 
+import com.mate_academy.social_network.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -7,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * Created by Kate on 20.05.17.
- */
+
 @Controller
 public class LoginController {
 

@@ -1,16 +1,10 @@
 package com.mate_academy.social_network.model;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-/**
- * Created by Bogdan on 20.05.2017.
- */
 @Entity
 @Table(name = "users")
 public class User {
