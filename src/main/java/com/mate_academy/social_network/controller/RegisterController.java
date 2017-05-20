@@ -26,8 +26,10 @@ public class RegisterController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("newUser") User user, Model model) {
         User existingUser = userService.addUser(user);
+        if (existingUser != null) {
+            model.addAttribute("welcomeUser", existingUser);
+        }
         return "home";
     }
-
 
 }

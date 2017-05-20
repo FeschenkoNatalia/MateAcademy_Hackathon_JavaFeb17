@@ -7,17 +7,16 @@
     <title>Register</title>
 </head>
 <body>
-
     <form:form method="post" action="/registration" modelAttribute="newUser">
 
         <form:label path="username">Login</form:label>
-        <form:input type="text" path="username"/><br>
+        <form:input type="text" path="username" placeholder="my login"/><br>
 
         <form:label path="password">Password</form:label>
-        <form:input type="password" name="pass1" path="password" placeholder="example password"/></br>
+        <form:input type="password" name="pass1" path="password" placeholder="example: pass1234"/></br>
 
         <form:label path="password">Confirm Password</form:label>
-        <input type="password" name="pass2" placeholder="example password"/></br>
+        <input type="password" name="pass2" placeholder="re-enter your password"/></br>
 
         <form:label path="email">Email</form:label>
         <form:input type="text" path="email" placeholder="example@gmail.com"/></br>
