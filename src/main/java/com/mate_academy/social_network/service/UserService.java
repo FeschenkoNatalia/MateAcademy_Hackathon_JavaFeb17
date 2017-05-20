@@ -6,5 +6,5 @@ public interface UserService {
 
     User addUser(User user);
 
-    User getUser();
+    User getUser(User user);
 }

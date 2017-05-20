@@ -4,9 +4,9 @@ import com.mate_academy.social_network.model.User;
 import com.mate_academy.social_network.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
@@ -15,19 +15,17 @@ public class HomeController {
 
     @RequestMapping("home")
     public String home(Model model) {
-       // model.addAttribute("user", userService.getUser());
+        model.addAttribute("user", userService.getUser(new User()));
         return "home";
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.POST)
-    public String home(@RequestParam(value = "logout", required = false) String logout,
+    public String home(@ModelAttribute("user") User user,
                         Model model){
-        /*User user = userService.getUser();
-        if(user != null) {
-            model.addAttribute("user", user);
-        }*/
+        User existingUser = userService.getUser(user);
+        if(existingUser != null) {
+            model.addAttribute("user", existingUser);
+        }
         return "home";
     }
-
-
 }
