@@ -14,11 +14,16 @@
 
     <title>Off Canvas Template for Bootstrap</title>
 
+    <style>
+        <%@include file="../resources/bootstrap/css/bootstrap.min.css"%>
+        <%@include file="../resources/bootstrap/css/userpage.css"%>
+    </style>
+
     <!-- Bootstrap core CSS -->
-    <link href="<c:out value="../resources/bootstrap/css/bootstrap.css/bootstrap.min.css"/>" rel="stylesheet">
+    <!-- <link href="<c:out value="../resources/bootstrap/css/bootstrap.css/bootstrap.min.css"/>" rel="stylesheet"> -->
 
     <!-- Custom styles for this template -->
-    <link href="<c:out value="../resources/bootstrap/css/userpage.css"></c:out>" rel="stylesheet">
+    <!-- <link href="<c:out value="../resources/bootstrap/css/userpage.css"/>" rel="stylesheet"> -->
 
 </head>
 
@@ -67,30 +72,10 @@
                     <p><a class="btn btn-default" href="settings.jsp" role="button">Settings &raquo;</a></p>
                 </div><!--/.col-xs-6.col-lg-4-->
                 <div class="col-xs-6 col-lg-4">
-                    <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                    <h2>Friends</h2>
                     <p><a class="btn btn-default" href="friends.jsp" role="button">Friends &raquo;</a></p>
                 </div><!--/.col-xs-6.col-lg-4-->
-                <div class="col-xs-6 col-lg-4">
-                    <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-                </div><!--/.col-xs-6.col-lg-4-->
-                <div class="col-xs-6 col-lg-4">
-                    <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-                </div><!--/.col-xs-6.col-lg-4-->
-                <div class="col-xs-6 col-lg-4">
-                    <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-                </div><!--/.col-xs-6.col-lg-4-->
-                <div class="col-xs-6 col-lg-4">
-                    <h2>Heading</h2>
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-                </div><!--/.col-xs-6.col-lg-4-->
+
             </div><!--/row-->
         </div><!--/.col-xs-12.col-sm-9-->
 
