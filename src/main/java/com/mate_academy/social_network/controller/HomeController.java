@@ -11,7 +11,6 @@ public class HomeController {
 
     private UserService userService;
 
-
     @RequestMapping("/user_page")
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "logout", required = false) String logout,
