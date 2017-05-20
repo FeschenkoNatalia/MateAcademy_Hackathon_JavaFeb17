@@ -1,6 +1,8 @@
 package com.mate_academy.social_network.controller;
 
 import com.mate_academy.social_network.model.User;
+import com.mate_academy.social_network.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class LoginController {
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error,
@@ -29,8 +34,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestParam("user") User user, Model model) {
-        //add code
-
+        model.addAttribute("user", userService.getUser(user));
         return "login";
     }
 
