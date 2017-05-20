@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +17,7 @@
     <link href="<c:out value="../resources/bootstrap/css/bootstrap.css/bootstrap.min.css"/>" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="<c:out value="../resources/bootstrap/css/userpage.css"></c:out>" rel="stylesheet">
+    <link href="<c:out value="../resources/bootstrap/css/bootstrap.css/userpage.css"/>" rel="stylesheet">
 
 </head>
 
@@ -46,10 +45,6 @@
 
 <div class="container">
 
-    <c:if test="${not empty logout}">
-        <div class="msg">${logout}</div>
-    </c:if>
-
     <div class="row row-offcanvas row-offcanvas-right">
 
         <div class="col-xs-12 col-sm-9">
@@ -58,9 +53,9 @@
             </p>
             <div class="jumbotron">
                 <h1>${user.username}</h1>
+                <p>${user.surname}</p>
 
             </div>
-
             <div class="row">
                 <div class="col-xs-6 col-lg-4">
                     <h2>Settings</h2>
@@ -94,13 +89,14 @@
             </div><!--/row-->
         </div><!--/.col-xs-12.col-sm-9-->
 
+    <hr>
 
     <footer>
         <p>&copy; 2016 Company, Inc.</p>
     </footer>
 
 </div><!--/.container-->
-</div>
+
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
