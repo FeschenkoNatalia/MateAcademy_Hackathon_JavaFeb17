@@ -1,0 +1,52 @@
+package com.mate_academy.social_network.dao;
+
+import com.mate_academy.social_network.model.User;
+import com.mate_academy.social_network.service.UserService;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import javax.transaction.Transactional;
+
+@Repository
+@Transactional
+public class UserDaoImpl implements UserDao {
+
+    @Autowired
+    protected SessionFactory sessionFactory;
+
+    @Override
+    public User add(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(user);
+        session.flush();
+        return null;
+    }
+
+    @Override
+    public User addFriend(User user) {
+        String hql = "from Friends where status=true";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        return (User) query.uniqueResult();
+    }
+
+
+    @Override
+    public User getUser(User user) {
+        String hql = "from User where username = :name and password = :password";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setString("name", user.getUsername());
+        query.setString("password", user.getPassword());
+        return (User) query.uniqueResult();
+    }
+
+    @Override
+    public User getUserByName(String name) {
+        String hql = "from User where username = :name";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setString("name", name);
+        return (User) query.uniqueResult();
+    }
+}

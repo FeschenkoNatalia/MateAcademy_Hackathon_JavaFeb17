@@ -1,10 +1,11 @@
 package com.mate_academy.social_network.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
     @Entity
     @Table(name = "message")
-    public class Message {
+    public class Message implements Serializable{
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
