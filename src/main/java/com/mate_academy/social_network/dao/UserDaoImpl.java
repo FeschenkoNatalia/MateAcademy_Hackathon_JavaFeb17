@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
         Session session = sessionFactory.getCurrentSession();
         session.save(user);
         session.flush();
-        return null;
+        return user;
     }
 
     @Override
