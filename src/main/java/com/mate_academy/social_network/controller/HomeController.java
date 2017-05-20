@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class HomeController {
 
@@ -27,16 +29,22 @@ public class HomeController {
                         Model model){
         User existingUser = userService.getUser(user);
         if(existingUser != null) {
+            model.addAttribute("title", "Home");
             model.addAttribute("user", existingUser);
         }
         return "home";
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String search(@RequestParam(value = "userName", required = true) String name,
+    @RequestMapping(value = "/search")
+    public String search(@RequestParam(value = "username", required = true) String username,
                          Model model){
-        User user = userService.getUserByName(name);
-        model.addAttribute("user", user);
-        return "search";
+        List<User> users = userService.getUserByName(username);
+        if(users != null) {
+            model.addAttribute("title", "Result search");
+            model.addAttribute("users", users);
+            return "search";
+        }
+        model.addAttribute("title", "User's not found");
+        return "userNotFound";
     }
 }
