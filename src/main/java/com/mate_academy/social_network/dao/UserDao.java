@@ -7,6 +7,8 @@ import java.util.List;
 public interface UserDao {
     User add(User user);
 
+    User addFriend(User user);
+
     User getUser(User user);
 
     List<User> getUserByName(String name);
