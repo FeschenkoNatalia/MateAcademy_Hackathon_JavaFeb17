@@ -1,7 +1,15 @@
 package com.mate_academy.social_network.service;
 
-/**
- * Created by brina on 21.05.17.
- */
-public class FriendsService {
+import com.mate_academy.social_network.model.Friends;
+import com.mate_academy.social_network.model.User;
+
+import java.util.List;
+
+public interface FriendsService {
+
+    Friends addToFriends(User user1, User user2);
+
+    User deleteFromFriends(User user);
+
+    List<Friends> getFriendsList(User user);
 }

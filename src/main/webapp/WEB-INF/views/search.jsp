@@ -11,7 +11,7 @@
             <c:forEach var="user" items="${users}">
                 <h3 align="center"><c:out value = "${user.username}"/>
                 <button class="btn btn-large btn-primary" type="submit">Add to friend</button>
-                <a href="<c:url value="/addfriend"/>" name="user" class="btn btn-large btn-primary">Add to friend</a></h3>
+                <a href="<c:url value="/addfriend?user=${user}"/>" name="user" class="btn btn-large btn-primary">Add to friend</a></h3>
                 <br>
             </c:forEach>
 

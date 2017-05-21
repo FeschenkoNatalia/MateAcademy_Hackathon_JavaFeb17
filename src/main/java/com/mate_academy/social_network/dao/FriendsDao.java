@@ -1,7 +1,16 @@
 package com.mate_academy.social_network.dao;
 
-/**
- * Created by brina on 21.05.17.
- */
-public class FriendsDao {
+import com.mate_academy.social_network.model.Friends;
+import com.mate_academy.social_network.model.User;
+import org.springframework.stereotype.Repository;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+@Repository
+@Transactional
+public interface FriendsDao extends GenericDao<Friends> {
+
+
+    List<Friends> getUsersFriends(User user);
 }
