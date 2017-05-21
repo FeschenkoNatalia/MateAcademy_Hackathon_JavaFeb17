@@ -23,9 +23,10 @@ public class MessageController {
 
     @RequestMapping("/messages")
     public String registration(@RequestParam(value = "sender") Long senderId,
-                               @RequestParam(value = "recipient") User recipient,
+                               @RequestParam(value = "recipient") Long recipientId,
                                Model model) {
         User sender = userService.getUser(senderId);
+        User recipient = userService.getUser(recipientId);
 
         model.addAttribute("sender", sender);
         model.addAttribute("recipient", recipient);
