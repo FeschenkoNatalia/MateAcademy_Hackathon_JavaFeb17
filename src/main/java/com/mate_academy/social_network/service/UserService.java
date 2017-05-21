@@ -13,4 +13,6 @@ public interface UserService {
     User getUser(User user);
 
     List<User> getUserByName(String name);
+
+    User getUserWithPass(User user);
 }

@@ -15,15 +15,16 @@
     <c:if test="${not empty logout}">
         <div class="msg">${logout}</div>
     </c:if>
-    <form:form class="form-signin" method="post" action="/J_SPRING_SECURITY_CHECK" modelAttribute="user">
+    <form:form class="form-signin" method="post" action="/login" modelAttribute="user">
         <c:if test="${not empty error}">
-            <div class="msg">${error}</div>
+            <div class="msg"><h4 style="color: red">${error}</h4></div>
         </c:if>
         <form:label path="username">Name</form:label>
         <form:input class="input-block-level" type="text" path="username"/>
 
         <form:label path="password">Password</form:label>
         <form:input class="input-block-level" path="password" type="password"/>
+
         <button class="btn btn-large btn-primary" type="submit">Log In</button>
         <h6>or</h6>
         <a href="<c:url value="/registration"/>" class="btn btn-large btn-primary">Registration</a>
