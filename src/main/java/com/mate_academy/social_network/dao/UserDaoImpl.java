@@ -13,35 +13,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class UserDaoImpl implements UserDao {
-
-    @Autowired
-    protected SessionFactory sessionFactory;
-
-    @Override
-    public User add(User user) {
-        Session session = sessionFactory.getCurrentSession();
-        session.save(user);
-        session.flush();
-        return user;
-    }
-
-    @Override
-    public User addFriend(User user) {
-        String hql = "from Friends where status=true";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        return (User) query.uniqueResult();
-    }
-
-
-    @Override
-    public User getUser(User user) {
-        String hql = "from User where username = :name and password = :password";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setString("name", user.getUsername());
-        query.setString("password", user.getPassword());
-        return (User) query.uniqueResult();
-    }
+public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public List<User> getUserByName(String name) {

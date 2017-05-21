@@ -19,15 +19,17 @@ public class HomeController {
     private UserService userService;
 
     @RequestMapping("/")
-    public String home(Model model) {
-        model.addAttribute("user", userService.getUser(new User()));
+    public String home(@RequestParam(value = "user_id") Long user_id,
+                       Model model) {
+        model.addAttribute("user", userService.getUser(user_id));
         return "home";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String home(@ModelAttribute("user") User user,
+                       @ModelAttribute("user_id") Long user_id,
                        Model model){
-        User existingUser = userService.getUser(user);
+        User existingUser = userService.getUser(user_id);
         if(existingUser != null) {
             model.addAttribute("title", "Home");
             model.addAttribute("user", existingUser);
