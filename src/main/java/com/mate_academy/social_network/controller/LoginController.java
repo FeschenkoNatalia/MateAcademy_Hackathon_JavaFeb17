@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -31,12 +32,10 @@ public class LoginController {
         model.addAttribute("user", new User());
         return "login";
 
-
-
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute("user") User user, HttpServletResponse response, Model model) {
+    public RedirectView login(@ModelAttribute("user") User user, HttpServletResponse response, Model model) {
         User userFromDb = userService.getUserWithPass(user);
 
 
@@ -45,10 +44,10 @@ public class LoginController {
             Cookie cookie = new Cookie("userId", userFromDb.getId().toString());
             cookie.setMaxAge(24 * 60 * 60);
             response.addCookie(cookie);
-            return "home";
+            return new RedirectView("/");
         }
         model.addAttribute("error", "Email and password do not match");
-        return "login";
+        return new RedirectView("login");
     }
 
 }

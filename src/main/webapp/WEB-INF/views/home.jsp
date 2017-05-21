@@ -24,7 +24,7 @@
                 </div><!--/.col-xs-6.col-lg-4-->
                 <div class="col-xs-6 col-lg-4">
                     <h2>Friends</h2>
-                    <p><a class="btn btn-default" href="friends.jsp" role="button">Friends &raquo;</a></p>
+                    <p><a class="btn btn-default" href="<c:url value="/friends"/>" role="button">Friends &raquo;</a></p>
                 </div><!--/.col-xs-6.col-lg-4-->
 
             </div><!--/row-->
