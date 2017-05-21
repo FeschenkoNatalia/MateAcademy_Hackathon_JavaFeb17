@@ -26,8 +26,13 @@ import java.util.List;
         @Override
         public T read(Class<T> tClass, long id) {
             Session session = sessionFactory.getCurrentSession();
-            T t = (T)session.get(tClass, id);
+            T t = (T)session.get(tClass,id);
             session.flush();
+            return t;
+        }
+
+
+        public T read(T t) {
             return t;
         }
 

@@ -19,13 +19,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addUser(User user) {
-        return userDao.add(user);
+    public User getUser(Long id) {
+        return userDao.read(User.class, id);
     }
 
     @Override
     public User getUser(User user) {
-        return userDao.getUser(user);
+        return userDao.read(user);
+    }
+
+    @Override
+    public User addUser(User user) {
+        return user;
     }
 
     @Override

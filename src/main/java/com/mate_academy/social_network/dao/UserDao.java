@@ -4,12 +4,8 @@ import com.mate_academy.social_network.model.User;
 
 import java.util.List;
 
-public interface UserDao {
-    User add(User user);
+public interface UserDao extends GenericDao<User>{
 
-    User addFriend(User user);
+    public List<User> getUserByName(String name);
 
-    User getUser(User user);
-
-    List<User> getUserByName(String name);
 }
