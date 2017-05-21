@@ -1,7 +1,7 @@
 <%@include file="header.jsp"%>
 
 <div class="container">
-    <c:forEach  var="friend" items="${friends}">
+    <%--<c:forEach  var="friend" items="${friends}">
         <div class="jumbotron">
 
                 <h1><a href="<c:out value="/product?id=${friend.id}"/>">
@@ -11,7 +11,7 @@
             <p><a class="btn btn-lg btn-success" href="#" role="button">send massage</a></p>
 
         </div>
-    </c:forEach>
+    </c:forEach>--%>
 
     <div class="jumbotron">
         <h1>Jumbotron heading</h1>
