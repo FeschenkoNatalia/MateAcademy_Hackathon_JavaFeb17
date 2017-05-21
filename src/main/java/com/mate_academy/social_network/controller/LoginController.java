@@ -22,9 +22,6 @@ public class LoginController {
                         @RequestParam(value = "logout", required = false) String logout,
                         @CookieValue(value = "userId", required = false) String cookieValue,
                         Model model) {
-        /*if (cookieValue!=null){
-            return "home";
-        }*/
         if (error != null) {
             model.addAttribute("error", "Email and password do not match");
         }
