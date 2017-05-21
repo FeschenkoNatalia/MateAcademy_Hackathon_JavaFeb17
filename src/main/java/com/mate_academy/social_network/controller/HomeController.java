@@ -3,6 +3,7 @@ package com.mate_academy.social_network.controller;
 import com.mate_academy.social_network.model.User;
 import com.mate_academy.social_network.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,6 +36,7 @@ public class HomeController {
         return "home";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/search")
     public String search(@RequestParam(value = "username", required = true) String username,
                          Model model){
@@ -47,4 +49,11 @@ public class HomeController {
         model.addAttribute("title", "User's not found");
         return "userNotFound";
     }
+
+    /*@RequestMapping(value = "/addfriend")
+    public String addFriend(@RequestParam(value = "user") User user,
+                            Model model) {
+        userService.addFriend(user);
+        return "home";
+    }*/
 }
