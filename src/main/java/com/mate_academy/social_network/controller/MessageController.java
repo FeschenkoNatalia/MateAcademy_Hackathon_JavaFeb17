@@ -30,6 +30,7 @@ public class MessageController {
 
         List<Message> messageList = messageService.getAllMessages(senderId, recipientId);
 
+        model.addAttribute("newMessage", new Message());
 
         User sender = userService.getUser(senderId);
         User recipient = userService.getUser(recipientId);
@@ -50,6 +51,22 @@ public class MessageController {
         Message mess = messageService.addMessage(message);
         if (mess != null) {
             model.addAttribute("message", mess);
+        }
+        return "messages";
+    }
+
+    @RequestMapping("/messages/send")
+    public String sendMessage(Model model) {
+        model.addAttribute("newMessage", new Message());
+        return "messages";
+    }
+
+    @RequestMapping(value = "/messages/send", method = RequestMethod.POST)
+    public String sendMessage(@ModelAttribute("newMessage") Message message,
+                              Model model) {
+        if (message != null) {
+            messageService.addMessage(message);
+            model.addAttribute("newMessage", message);
         }
         return "messages";
     }

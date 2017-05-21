@@ -23,28 +23,22 @@ public class MessageDaoImpl extends AbstractDao<Message> implements MessageDao {
 
     @Override
     public List<Message> getAllMessages(Long senderId, Long recipientId) {
-        String hqlSen = "from Message where sender.id =:senderId";
-        String hqlRec = "from Message where recipient.id =:recipientId";
-        Query querySen = sessionFactory.getCurrentSession().createQuery(hqlSen);
-        Query queryRec = sessionFactory.getCurrentSession().createQuery(hqlRec);
+        String hql = "from Message m join fetch m.sender join fetch m.recipient where m.sender.id =:senderId and m.recipient.id =:recipientId";
+        Query querySen = sessionFactory.getCurrentSession().createQuery(hql);
+        Query queryRec = sessionFactory.getCurrentSession().createQuery(hql);
         querySen.setParameter("senderId", senderId);
-        queryRec.setParameter("recipientId", recipientId);
+        querySen.setParameter("recipientId", recipientId);
+        queryRec.setParameter("senderId", recipientId);
+        queryRec.setParameter("recipientId", senderId);
         List<Message> messageListSen = querySen.list();
         List<Message> messageListRec = queryRec.list();
         List<Message> result = new ArrayList<>();
         result.addAll(messageListSen);
         result.addAll(messageListRec);
         return result;
-
-//        String sql = "select Text from MESSAGE where sender =:senderId union select Text from MESSAGE where recipient =:recipientId";
-//        Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
-//        query.setParameter("senderId", senderId);
-//        query.setParameter("recipientId", senderId);
-////        String hql = "select Text from MESSAGE where senderId =:id union select ID from MESSAGE where recipientId =:id";
-////        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-////        List<String> idList = query.list();
-//        return  query.list();
     }
+
+
 
 
 }
