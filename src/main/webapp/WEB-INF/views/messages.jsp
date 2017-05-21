@@ -12,7 +12,7 @@
 
 <body>
 <form:form method="post" action="/messages" modelAttributes="sender, recipient" class="form-messages">
-<div class="container center">
+<div class="container vertical-align: middle">
     <div class="row center">
         <div class="col-md-20">
             <div class="panel panel-primary">
@@ -48,7 +48,13 @@
                                     <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
                                 </div>
                                 <p>
-                                    ${message.text}
+                                    <c:forEach var="message" items="${messages}">
+                                    <tr>
+                                        <td>
+                                <p><c:out value="${message.text}"/></p>
+                                </td>
+                                </tr>
+                                </c:forEach>
                                 </p>
                             </div>
                         </li>
@@ -61,7 +67,13 @@
                                     <strong class="pull-right primary-font">${message.recipient.id}</strong>
                                 </div>
                                 <p>
-                                    ${message.text}
+                                    <c:forEach var="message" items="${messages}">
+                                    <tr>
+                                        <td>
+                                <p><c:out value="${message.text}"/></p>
+                                </td>
+                                </tr>
+                                </c:forEach>
                                 </p>
                             </div>
                         </li>

@@ -8,4 +8,6 @@ public interface UserDao extends GenericDao<User>{
 
     public List<User> getUserByName(String name);
 
+    User getUserWithPass(User user);
+
 }

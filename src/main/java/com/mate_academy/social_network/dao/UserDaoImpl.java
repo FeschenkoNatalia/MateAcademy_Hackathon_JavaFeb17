@@ -23,4 +23,13 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         query.setString("name", name);
         return (List<User>) query.list();
     }
+
+    @Override
+    public User getUserWithPass(User user) {
+        String hql = "from User where username =:username and password =:password";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setString("username", user.getUsername());
+        query.setString("password", user.getPassword());
+        return (User) query.uniqueResult();
+    }
 }
