@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,8 +17,11 @@ public class HomeController {
     private UserService userService;
 
     @RequestMapping("/")
-    public String home(@RequestParam(value = "user_id") Long user_id,
+    public String home(@CookieValue(value = "userId", required = false) Long user_id,
                        Model model) {
+        if (user_id == null){
+            return "error";
+        }
         model.addAttribute("user", userService.getUser(user_id));
         return "home";
     }

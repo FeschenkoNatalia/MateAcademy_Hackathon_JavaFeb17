@@ -37,4 +37,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getUserByName(String name) {
         return userDao.getUserByName(name);
     }
+
+    @Override
+    public User getUserWithPass(User user) {
+        return userDao.getUserWithPass(user);
+    }
 }
