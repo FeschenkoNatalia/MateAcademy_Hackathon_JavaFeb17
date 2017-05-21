@@ -2,7 +2,6 @@ package com.mate_academy.social_network.controller;
 
 import com.mate_academy.social_network.model.Message;
 import com.mate_academy.social_network.model.User;
-import com.mate_academy.social_network.service.GroupService;
 import com.mate_academy.social_network.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +16,8 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
-    @Autowired
-    private GroupService groupService;
+//    @Autowired
+//    private GroupService groupService;
 
     @RequestMapping(value = "/message", method = RequestMethod.POST)
     public String registration(@ModelAttribute("message")Message message, Model model) {
