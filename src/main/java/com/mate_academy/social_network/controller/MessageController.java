@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class MessageController {
 
@@ -22,22 +24,29 @@ public class MessageController {
     private UserService userService;
 
     @RequestMapping("/messages")
-    public String registration(@RequestParam(value = "sender") Long senderId,
+    public String showMessages(@RequestParam(value = "sender") Long senderId,
                                @RequestParam(value = "recipient") Long recipientId,
                                Model model) {
+
+        List<Message> messageList = messageService.getAllMessages(senderId, recipientId);
+
+
         User sender = userService.getUser(senderId);
         User recipient = userService.getUser(recipientId);
 
+        model.addAttribute("messages", messageList);
         model.addAttribute("sender", sender);
         model.addAttribute("recipient", recipient);
+
         return "messages";
     }
 
     @RequestMapping(value = "/messages", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("message") Message message,
+    public String showMessages(@ModelAttribute("message") Message message,
                                @ModelAttribute("sender") User sender,
                                @ModelAttribute("recipient") User recipient,
                                Model model) {
+
         Message mess = messageService.addMessage(message);
         if (mess != null) {
             model.addAttribute("message", mess);

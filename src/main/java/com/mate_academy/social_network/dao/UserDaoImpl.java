@@ -23,4 +23,5 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         query.setString("name", name);
         return (List<User>) query.list();
     }
+
 }
