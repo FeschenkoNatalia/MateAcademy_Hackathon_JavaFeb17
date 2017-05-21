@@ -11,5 +11,7 @@ public interface FriendsService {
 
     User deleteFromFriends(User user);
 
-    List<Friends> getFriendsList(User user);
+    List<User> getFriendsList(User user);
+
+    Friends acceptFriend(Long currentUser, Long userForAdd);
 }

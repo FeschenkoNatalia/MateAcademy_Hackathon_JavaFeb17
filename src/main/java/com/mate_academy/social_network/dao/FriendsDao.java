@@ -12,5 +12,7 @@ import java.util.List;
 public interface FriendsDao extends GenericDao<Friends> {
 
 
-    List<Friends> getUsersFriends(User user);
+    List<User> getUsersFriends(User user);
+
+    Friends addToFriend(Long user1, Long user2);
 }
