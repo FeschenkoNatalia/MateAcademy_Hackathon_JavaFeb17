@@ -29,7 +29,12 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
-    public List<Friends> getFriendsList(User user) {
+    public List<User> getFriendsList(User user) {
         return friendsDao.getUsersFriends(user);
+    }
+
+    @Override
+    public Friends acceptFriend(Long currentUser, Long userForAdd) {
+        return friendsDao.addToFriend(currentUser, userForAdd);
     }
 }

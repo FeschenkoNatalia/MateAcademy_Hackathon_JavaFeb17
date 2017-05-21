@@ -1,8 +1,37 @@
 <%@include file="header.jsp"%>
 
 <div class="container">
+    <c:forEach  var="friend" items="${friends}">
+        <div class="jumbotron">
 
-    <c:if test="${not empty logout}">
+                <h1><a href="<c:out value="/product?id=${friend.id}"/>">
+                    <c:out value="${friend.username}"/>
+                </a></h1>
+            <p><a class="btn btn-lg btn-success" href="#" role="button">delete</a></p>
+            <p><a class="btn btn-lg btn-success" href="#" role="button">send massage</a></p>
+
+        </div>
+    </c:forEach>
+
+    <div class="jumbotron">
+        <h1>Jumbotron heading</h1>
+        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+    </div>
+
+    <div class="jumbotron">
+        <h1>Jumbotron heading</h1>
+        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+    </div>
+
+    <div class="jumbotron">
+        <h1>Jumbotron heading</h1>
+        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+    </div>
+
+    <%--<c:if test="${not empty logout}">
         <div class="msg">${logout}</div>
     </c:if>
 
@@ -35,17 +64,9 @@
             <p>&copy; 2016 Company, Inc.</p>
         </footer>
 
-    </div><!--/.container-->
+    </div><!--/.container-->--%>
 </div>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="../../dist/js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-<script src="offcanvas.js"></script>
+
 </body>
 </html>
