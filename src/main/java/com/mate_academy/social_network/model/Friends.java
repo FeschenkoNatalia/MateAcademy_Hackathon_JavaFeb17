@@ -1,30 +1,41 @@
 package com.mate_academy.social_network.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "friends")
-public class Friends {
+public class Friends implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "u1")
+    private User user1;
 
-    @Column(name = "status")
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "u2")
+    private User user2;
+
+    @Column(name = "status", nullable = false)
     private Boolean status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "username")
-    private User user;
 
-    public Long getId() {
-        return id;
+    public User getUser1() {
+        return user1;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUser1(User user1) {
+        this.user1 = user1;
+    }
+
+    public User getUser2() {
+        return user2;
+    }
+
+    public void setUser2(User user2) {
+        this.user2 = user2;
     }
 
     public Boolean getStatus() {
@@ -35,13 +46,6 @@ public class Friends {
         this.status = status;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
 
 
