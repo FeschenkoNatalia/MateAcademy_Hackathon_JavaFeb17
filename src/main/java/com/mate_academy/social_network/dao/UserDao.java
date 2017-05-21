@@ -2,10 +2,14 @@ package com.mate_academy.social_network.dao;
 
 import com.mate_academy.social_network.model.User;
 
+import java.util.List;
+
 public interface UserDao {
     User add(User user);
 
+    User addFriend(User user);
+
     User getUser(User user);
 
-    User getUserByName(String name);
+    List<User> getUserByName(String name);
 }

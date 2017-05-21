@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -26,6 +27,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User addFriend(User user) {
+        String hql = "from Friends where status=true";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        return (User) query.uniqueResult();
+    }
+
+
+    @Override
     public User getUser(User user) {
         String hql = "from User where username = :name and password = :password";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
@@ -35,10 +44,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserByName(String name) {
-        String hql = "from User where username = :name";
+    public List<User> getUserByName(String name) {
+        name = name.toUpperCase();
+        String hql = "from User where upper(username) =:name";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
         query.setString("name", name);
-        return (User) query.uniqueResult();
+        return (List<User>) query.list();
     }
 }
