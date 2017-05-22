@@ -13,5 +13,5 @@ public interface FriendsService {
 
     List<User> getFriendsList(User user);
 
-    Friends acceptFriend(Long currentUser, Long userForAdd);
+    Friends acceptFriend(User user1, User user2);
 }

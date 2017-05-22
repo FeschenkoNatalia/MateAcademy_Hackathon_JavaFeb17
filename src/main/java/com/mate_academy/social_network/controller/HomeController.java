@@ -49,7 +49,8 @@ public class HomeController {
             return "search";
         }
         model.addAttribute("title", "User's not found");
-        return "userNotFound";
+        model.addAttribute("message", "User is not found. Please, chrck the name.");
+        return "errorMessage";
     }
 
     /*@RequestMapping(value = "/addfriend")

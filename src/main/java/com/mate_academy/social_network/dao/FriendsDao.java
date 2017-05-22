@@ -13,6 +13,4 @@ public interface FriendsDao extends GenericDao<Friends> {
 
 
     List<User> getUsersFriends(User user);
-
-    Friends addToFriend(Long user1, Long user2);
 }

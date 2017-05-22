@@ -1,5 +1,6 @@
 package com.mate_academy.social_network.controller;
 
+import com.mate_academy.social_network.model.Friends;
 import com.mate_academy.social_network.model.User;
 import com.mate_academy.social_network.service.FriendsService;
 import com.mate_academy.social_network.service.UserService;
@@ -30,18 +31,25 @@ public class FriendsController {
     }
 
     @RequestMapping(value = "/addfriend")
-    public String addFriend(@RequestParam(value = "currentuser", required = true) Long user1,
+    public String addFriend(@CookieValue(value = "userId", required = false) Long userId,
                             @RequestParam(value = "user", required = true) Long user2,
                             Model model) {
-        friendsService.addToFriends(userService.getUser(user1), userService.getUser(user2));
-        return "friends";
+        Friends friend = friendsService.addToFriends(userService.getUser(userId), userService.getUser(user2));
+        if(friend != null) {
+            model.addAttribute("friends", friendsService.getFriendsList(userService.getUser(userId)));
+            return "friends";
+        }
+        model.addAttribute("title", "Error");
+        model.addAttribute("message", "User already exists in your friends list");
+        return "errorMessage";
     }
 
     @RequestMapping(value = "/accepttofriends")
-    public String acceptToFriends(@RequestParam(value = "currentuser", required = true) Long currentUser,
+    public String acceptToFriends(@CookieValue(value = "userId", required = false) Long userId,
                                   @RequestParam(value = "user", required = true) Long userForAdd,
                                   Model model){
-        friendsService.acceptFriend(currentUser, userForAdd);
+        friendsService.acceptFriend(userService.getUser(userId), userService.getUser(userForAdd));
+        model.addAttribute("friends", friendsService.getFriendsList(userService.getUser(userId)));
         return "friends";
     }
 }

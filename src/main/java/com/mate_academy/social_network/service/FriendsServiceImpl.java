@@ -17,10 +17,15 @@ public class FriendsServiceImpl implements FriendsService {
     @Override
     public Friends addToFriends(User user1, User user2) {
         Friends friends = new Friends();
-        friends.setStatus(false);
         friends.setUser1(user1);
         friends.setUser2(user2);
-        return friendsDao.create(friends);
+        friends.setStatus(false);
+        try {
+            friends = friendsDao.create(friends);
+        } catch (Exception e) {
+            return null;
+        }
+        return friends;
     }
 
     @Override
@@ -34,7 +39,11 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
-    public Friends acceptFriend(Long currentUser, Long userForAdd) {
-        return friendsDao.addToFriend(currentUser, userForAdd);
+    public Friends acceptFriend(User user1, User user2) {
+        Friends friends = new Friends();
+        friends.setUser1(user1);
+        friends.setUser2(user2);
+        friends.setStatus(true);
+        return friendsDao.update(friends);
     }
 }
