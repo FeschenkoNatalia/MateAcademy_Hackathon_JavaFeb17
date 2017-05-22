@@ -24,36 +24,37 @@ public class MessageController {
     private UserService userService;
 
     @RequestMapping("/messages")
-    public String showMessages(@RequestParam(value = "sender") Long senderId,
-                               @RequestParam(value = "recipient") Long recipientId,
+    public String showMessages(@ModelAttribute("newMessage") Message message,
                                Model model) {
 
-        List<Message> messageList = messageService.getAllMessages(senderId, recipientId);
+        System.out.println("!!!");
+        List<Message> messageList = messageService.getAllMessages(message.getSender().getId(), message.getRecipient().getId());
 
         model.addAttribute("newMessage", new Message());
 
-        User sender = userService.getUser(senderId);
-        User recipient = userService.getUser(recipientId);
+//        User sender = userService.getUser(senderId);
+//        User recipient = userService.getUser(recipientId);
 
         model.addAttribute("messages", messageList);
-        model.addAttribute("sender", sender);
-        model.addAttribute("recipient", recipient);
+//        model.addAttribute("sender", sender);
+//        model.addAttribute("recipient", recipient);
 
         return "messages";
     }
 
-    @RequestMapping(value = "/messages", method = RequestMethod.POST)
-    public String showMessages(@ModelAttribute("message") Message message,
-                               @ModelAttribute("sender") User sender,
-                               @ModelAttribute("recipient") User recipient,
-                               Model model) {
-
-        Message mess = messageService.addMessage(message);
-        if (mess != null) {
-            model.addAttribute("message", mess);
-        }
-        return "messages";
-    }
+//    @RequestMapping(value = "/messages", method = RequestMethod.POST)
+//    public String showMessages(@ModelAttribute("sender") User sender,
+//                               @ModelAttribute("recipient") User recipient,
+//                               @ModelAttribute("message") Message message,
+//                               Model model) {
+//        List<Message> messageList = messageService.getAllMessages(sender.getId(), recipient.getId());
+//        model.addAttribute("messages", messageList);
+////        Message mess = messageService.addMessage(message);
+////        if (mess != null) {
+////            model.addAttribute("message", mess);
+////        }
+//        return "messages";
+//    }
 
     @RequestMapping("/messages/send")
     public String sendMessage(Model model) {
