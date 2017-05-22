@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class FriendsServiceImpl implements FriendsService {
 
-    @Autowired
+    /*@Autowired
     public FriendsDao friendsDao;
 
     @Override
@@ -46,4 +46,14 @@ public class FriendsServiceImpl implements FriendsService {
         friends.setStatus(true);
         return friendsDao.update(friends);
     }
+
+    @Override
+    public List<User> getFollowersList(User user) {
+        return friendsDao.getUsersFollowers(user);
+    }
+
+    @Override
+    public List<User> getSubscribersList(User user) {
+        return friendsDao.getUsersSubscribers(user);
+    }*/
 }
