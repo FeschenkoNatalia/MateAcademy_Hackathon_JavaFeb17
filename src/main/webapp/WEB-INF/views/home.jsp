@@ -18,14 +18,18 @@
             </div>
 
             <div class="row">
+                <%--<div class="col-xs-6 col-lg-4">
+                    <h2><p><a href="settings.jsp" >Settings</a></p></h2>
+                </div>--%>
                 <div class="col-xs-6 col-lg-4">
-                    <h2>Settings</h2>
-                    <p><a class="btn btn-default" href="settings.jsp" role="button">Settings &raquo;</a></p>
-                </div><!--/.col-xs-6.col-lg-4-->
+                    <h2><p><a href="<c:url value="/friends"/>" >Friends</a></p></h2>
+                </div>
                 <div class="col-xs-6 col-lg-4">
-                    <h2>Friends</h2>
-                    <p><a class="btn btn-default" href="<c:url value="/friends"/>" role="button">Friends &raquo;</a></p>
-                </div><!--/.col-xs-6.col-lg-4-->
+                    <h2><p><a href="<c:url value="/followers"/>" >Followers</a></p></h2>
+                </div>
+                <div class="col-xs-6 col-lg-4">
+                    <h2><p><a href="<c:url value="/subscribers"/>" >Subscribers</a></p></h2>
+                </div>
 
             </div><!--/row-->
         </div><!--/.col-xs-12.col-sm-9-->
