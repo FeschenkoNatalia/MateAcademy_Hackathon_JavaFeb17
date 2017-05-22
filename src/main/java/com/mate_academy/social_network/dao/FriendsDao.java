@@ -10,7 +10,11 @@ import java.util.List;
 @Repository
 @Transactional
 public interface FriendsDao extends GenericDao<Friends> {
-
+/*
 
     List<User> getUsersFriends(User user);
+
+    List<User> getUsersFollowers(User user);
+
+    List<User> getUsersSubscribers(User user);*/
 }
