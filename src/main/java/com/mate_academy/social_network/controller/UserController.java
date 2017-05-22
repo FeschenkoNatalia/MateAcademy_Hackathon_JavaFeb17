@@ -55,7 +55,7 @@ public class UserController {
         return "followers";
     }
 
-    @RequestMapping(value = "/subscriber")
+    @RequestMapping(value = "/subscribers")
     public String getSubscribersPage(@CookieValue(value = "userId", required = false) Long userId,
                                     Model model) {
         User user = userService.getUser(userId);
