@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Locale;
-
 @Controller
 public class FriendsController {
 
@@ -51,5 +49,21 @@ public class FriendsController {
         friendsService.acceptFriend(userService.getUser(userId), userService.getUser(userForAdd));
         model.addAttribute("friends", friendsService.getFriendsList(userService.getUser(userId)));
         return "friends";
+    }
+
+    @RequestMapping(value = "/followers")
+    public String getFollowersPage(@CookieValue(value = "userId", required = false) Long userId,
+                                   Model model) {
+        User user = userService.getUser(userId);
+        model.addAttribute(friendsService.getFollowersList(user));
+        return "followers";
+    }
+
+    @RequestMapping(value = "/subscriber")
+    public String getSubscribersPage(@CookieValue(value = "userId", required = false) Long userId,
+                                    Model model) {
+        User user = userService.getUser(userId);
+        model.addAttribute(friendsService.getSubscribersList());
+        return "subscribers";
     }
 }
