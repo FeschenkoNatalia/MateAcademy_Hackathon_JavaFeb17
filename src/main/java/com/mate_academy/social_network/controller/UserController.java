@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class UserController {
@@ -61,5 +62,13 @@ public class UserController {
         User user = userService.getUser(userId);
         model.addAttribute("subscribers", userService.getSubscribersList(user));
         return "subscribers";
+    }
+
+    @RequestMapping(value = "deletefromfriends")
+    public RedirectView deleteFromFriends(@CookieValue(value = "userId", required = false) Long userId,
+                                    @RequestParam(value = "user", required = true) Long userForAdd,
+                                    Model model) {
+
+        return new RedirectView("friends");
     }
 }

@@ -19,5 +19,5 @@ public interface UserDao extends GenericDao<User>{
 
     Friends addToFriends(Friends friends);
 
-    Friends acceptToFriends(Friends friends);
+    Friends updateFriends(Friends friends);
 }
