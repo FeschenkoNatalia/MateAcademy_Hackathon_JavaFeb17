@@ -17,12 +17,12 @@ public class HomeController {
     private UserService userService;
 
     @RequestMapping("/")
-    public String home(@CookieValue(value = "userId", required = false) Long user_id,
+    public String home(@CookieValue(value = "userId", required = false) Long userId,
                        Model model) {
-        if (user_id == null){
+        if (userId == null){
             return "error";
         }
-        model.addAttribute("user", userService.getUser(user_id));
+        model.addAttribute("user", userService.getUser(userId));
         return "home";
     }
 
@@ -49,7 +49,8 @@ public class HomeController {
             return "search";
         }
         model.addAttribute("title", "User's not found");
-        return "userNotFound";
+        model.addAttribute("message", "User is not found. Please, chrck the name.");
+        return "errorMessage";
     }
 
     /*@RequestMapping(value = "/addfriend")
