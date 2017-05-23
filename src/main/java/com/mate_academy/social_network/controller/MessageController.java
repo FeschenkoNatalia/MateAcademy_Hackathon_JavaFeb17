@@ -7,10 +7,7 @@ import com.mate_academy.social_network.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,53 +21,33 @@ public class MessageController {
     private UserService userService;
 
     @RequestMapping("/messages")
-    public String showMessages(@ModelAttribute("newMessage") Message message,
+    public String showMessages(@RequestParam("recipient") Long recipientId,
+                               @CookieValue(value = "userId", required = false) Long userId,
                                Model model) {
-
-        System.out.println("!!!");
-        List<Message> messageList = messageService.getAllMessages(message.getSender().getId(), message.getRecipient().getId());
-
-        model.addAttribute("newMessage", new Message());
-
-//        User sender = userService.getUser(senderId);
-//        User recipient = userService.getUser(recipientId);
-
+        User sender = userService.getUser(userId);
+        User recipient = userService.getUser(recipientId);
+        List<Message> messageList = messageService.getAllMessages(sender.getId(), recipient.getId());
+        model.addAttribute("sender", sender);
+        model.addAttribute("recipient", recipient);
         model.addAttribute("messages", messageList);
-//        model.addAttribute("sender", sender);
-//        model.addAttribute("recipient", recipient);
-
-        return "messages";
-    }
-
-//    @RequestMapping(value = "/messages", method = RequestMethod.POST)
-//    public String showMessages(@ModelAttribute("sender") User sender,
-//                               @ModelAttribute("recipient") User recipient,
-//                               @ModelAttribute("message") Message message,
-//                               Model model) {
-//        List<Message> messageList = messageService.getAllMessages(sender.getId(), recipient.getId());
-//        model.addAttribute("messages", messageList);
-////        Message mess = messageService.addMessage(message);
-////        if (mess != null) {
-////            model.addAttribute("message", mess);
-////        }
-//        return "messages";
-//    }
-
-    @RequestMapping("/messages/send")
-    public String sendMessage(Model model) {
         model.addAttribute("newMessage", new Message());
         return "messages";
     }
 
-    @RequestMapping(value = "/messages/send", method = RequestMethod.POST)
+    @RequestMapping(value = "/messages", method = RequestMethod.POST)
     public String sendMessage(@ModelAttribute("newMessage") Message message,
                               Model model) {
         if (message != null) {
             messageService.addMessage(message);
-            model.addAttribute("newMessage", message);
+            User recipient = userService.getUser(message.getRecipient().getId());
+            User sender = userService.getUser(message.getSender().getId());
+            List<Message> messageList = messageService.getAllMessages(sender.getId(), recipient.getId());
+            model.addAttribute("recipient", recipient);
+            model.addAttribute("sender", sender);
+            model.addAttribute("messages", messageList);
+            model.addAttribute("newMessage", new Message());
         }
         return "messages";
     }
-
 
 }
