@@ -40,4 +40,9 @@ public class MessageServiceImpl implements MessageService {
         return messageDao.getAllMessages(senderId, recipientId);
     }
 
+    @Override
+    public Long getNumberOfNotReadMessages(Long userId) {
+        return messageDao.getNumberOfNotReadMessages(userId);
+    }
+
 }

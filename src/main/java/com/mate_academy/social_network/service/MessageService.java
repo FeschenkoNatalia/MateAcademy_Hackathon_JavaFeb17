@@ -14,4 +14,6 @@ public interface MessageService {
     Message addMessage (Message message);
 
     List<Message> getAllMessages(Long senderId, Long recipientId);
+
+    Long getNumberOfNotReadMessages(Long userId);
 }

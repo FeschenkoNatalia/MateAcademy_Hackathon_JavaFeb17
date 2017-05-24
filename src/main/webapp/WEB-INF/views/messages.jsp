@@ -20,6 +20,7 @@
 
 <form:form method="post" action="/messages" modelAttribute="newMessage">
     <form:input path="text" id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+    <form:input path="status" id="btn-input" type="hidden" value="new" class="form-control input-sm"/>
     <form:input path="sender.id" value="${sender.id}" id="btn-input" type="hidden" class="form-control input-sm"/>
     <form:input path="recipient.id" value="${recipient.id}" id="btn-input" type="hidden" class="form-control input-sm"/>
 

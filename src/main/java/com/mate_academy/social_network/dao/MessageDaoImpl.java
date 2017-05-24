@@ -38,7 +38,13 @@ public class MessageDaoImpl extends AbstractDao<Message> implements MessageDao {
         return result;
     }
 
-
+    @Override
+    public Long getNumberOfNotReadMessages(Long userId) {
+        String hql = "Select count(m.id) from Message m where m.recipient.id =:userId and m.status = 'new'";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("userId", userId);
+        return (Long) query.list().get(0);
+    }
 
 
 }

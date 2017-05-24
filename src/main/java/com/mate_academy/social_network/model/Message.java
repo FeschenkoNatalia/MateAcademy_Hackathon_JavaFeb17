@@ -22,6 +22,9 @@ public class Message implements Serializable{
     @Column(name = "text")
     private String text;
 
+    @Column(name = "status")
+    private String status;
+
     public Long getId() {
         return id;
     }
@@ -52,5 +55,13 @@ public class Message implements Serializable{
 
     public void setRecipient(User recipient) {
         this.recipient = recipient;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
