@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
-        return user;
+        return userDao.create(user);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
         friends.setUser1(user1);
         friends.setUser2(user2);
         friends.setStatus(true);
-        return userDao.acceptToFriends(friends);
+        return userDao.updateFriends(friends);
     }
 
     @Override

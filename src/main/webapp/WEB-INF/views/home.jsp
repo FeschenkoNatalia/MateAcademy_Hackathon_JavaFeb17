@@ -14,7 +14,9 @@
             </p>
             <div class="jumbotron">
                 <h1>${user.username}</h1>
-
+                <c:if test="${numberOfNotReadMessages > 0}">
+                    <h2>You have <b>${numberOfNotReadMessages}</b> new messages!!!</h2>
+                </c:if>
             </div>
 
             <div class="row">

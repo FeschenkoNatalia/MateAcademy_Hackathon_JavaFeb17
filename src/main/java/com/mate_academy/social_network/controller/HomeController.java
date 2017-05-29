@@ -1,6 +1,7 @@
 package com.mate_academy.social_network.controller;
 
 import com.mate_academy.social_network.model.User;
+import com.mate_academy.social_network.service.MessageService;
 import com.mate_academy.social_network.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +17,9 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MessageService messageService;
+
     @RequestMapping("/")
     public String home(@CookieValue(value = "userId", required = false) Long userId,
                        Model model) {
@@ -23,6 +27,10 @@ public class HomeController {
             return "error";
         }
         model.addAttribute("user", userService.getUser(userId));
+        Long numberOfNotReadMessages = messageService.getNumberOfNotReadMessages(userId);
+        if (numberOfNotReadMessages > 0) {
+            model.addAttribute("numberOfNotReadMessages", numberOfNotReadMessages);
+        }
         return "home";
     }
 
@@ -49,7 +57,7 @@ public class HomeController {
             return "search";
         }
         model.addAttribute("title", "User's not found");
-        model.addAttribute("message", "User is not found. Please, chrck the name.");
+        model.addAttribute("message", "User is not found. Please, check the name.");
         return "errorMessage";
     }
 

@@ -3,6 +3,7 @@ package com.mate_academy.social_network.dao;
 import com.mate_academy.social_network.model.Friends;
 import com.mate_academy.social_network.model.User;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -61,17 +62,19 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     @Override
     public Friends addToFriends(Friends friends) {
         try {
-            sessionFactory.getCurrentSession().save(friends);
-        } catch (Exception ex) {
+            Session session = sessionFactory.getCurrentSession();
+            session.save(friends);
+        } catch (Throwable ex) {
             return null;
         }
         return friends;
     }
 
     @Override
-    public Friends acceptToFriends(Friends friends) {
+    public Friends updateFriends(Friends friends) {
         try {
-            sessionFactory.getCurrentSession().update(friends);
+            Session session = sessionFactory.getCurrentSession();
+            session.update(friends);
         } catch (Exception ex) {
             return null;
         }
