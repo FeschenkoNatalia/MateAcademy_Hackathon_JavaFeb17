@@ -2,6 +2,7 @@ package com.mate_academy.social_network.dao;
 
 import com.mate_academy.social_network.model.Friends;
 import com.mate_academy.social_network.model.User;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
@@ -33,12 +34,11 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public List<User> getUsersFriends(User user) {
-        String hql = "from User as u where " +
-                "u.id in (select f.user1 from Friends as f where f.user2=:user and status='true') " +
-                "or u.id in (select f.user2 from Friends as f where f.user1=:user and status='true')";
+        /*String hql = "select friends from User friends left join fetch friends. where id =:id";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("user", user);
-        return query.list();
+        query.setParameter("id", user.getId());*/
+        
+        return user.getFriends();
     }
 
     @Override
@@ -52,10 +52,13 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public List<User> getUsersSubscribers(User user) {
-        String hql = "from User as u where " +
+        /*String hql = "from User as u where " +
                 "u.id in (select f.user2 from Friends as f where f.user1=:user and status='false')";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("user", user);
+        query.setParameter("user", user);*/
+        String hql = "select friends from User where id =:id";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("id", user.getId());
         return query.list();
     }
 
