@@ -1,6 +1,10 @@
 package com.mate_academy.social_network.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mate_academy.social_network.Views;
+import com.mate_academy.social_network.model.AjaxResponseBody;
 import com.mate_academy.social_network.model.Message;
+import com.mate_academy.social_network.model.SearchCriteria;
 import com.mate_academy.social_network.model.User;
 import com.mate_academy.social_network.service.MessageService;
 import com.mate_academy.social_network.service.UserService;
@@ -20,6 +24,7 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
+    @JsonView(Views.Public.class)
     @RequestMapping("/messages")
     public String showMessages(@RequestParam("recipient") Long recipientId,
                                @CookieValue(value = "userId", required = false) Long userId,
@@ -35,8 +40,8 @@ public class MessageController {
     }
 
     @RequestMapping(value = "/messages", method = RequestMethod.POST)
-    public String sendMessage(@ModelAttribute("newMessage") Message message,
-                              Model model) {
+    public String sendMessage(@ModelAttribute("newMessage") Message message, Model model) {
+
         if (message != null) {
             messageService.addMessage(message);
             User recipient = userService.getUser(message.getRecipient().getId());
@@ -47,7 +52,21 @@ public class MessageController {
             model.addAttribute("messages", messageList);
             model.addAttribute("newMessage", new Message());
         }
+
         return "messages";
     }
 
+    private List<Message> getMessagesByRecipientId(Long id) {
+        return messageService.getMessageByRecipientId(id);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/messages/update", method = RequestMethod.POST)
+    public AjaxResponseBody updateMessages(@RequestBody SearchCriteria searchCriteria) {
+        AjaxResponseBody responseBody = new AjaxResponseBody();
+        if(searchCriteria.getRecipientId() != null)
+            responseBody.setResult(getMessagesByRecipientId(searchCriteria.getRecipientId()));
+
+        return responseBody;
+    }
 }
