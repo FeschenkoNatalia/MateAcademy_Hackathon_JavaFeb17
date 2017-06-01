@@ -1,5 +1,8 @@
 package com.mate_academy.social_network.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mate_academy.social_network.Views;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -20,6 +23,7 @@ public class Message implements Serializable{
     private User recipient;
 
     @Column(name = "text")
+    @JsonView(Views.Public.class)
     private String text;
 
     @Column(name = "status")

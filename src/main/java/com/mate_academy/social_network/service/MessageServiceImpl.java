@@ -50,4 +50,9 @@ public class MessageServiceImpl implements MessageService {
         messageDao.markMessagesAsReadForUsers(senderId, recipientId);
     }
 
+    @Override
+    public List<Message> getMessageByRecipientId(Long id) {
+        return messageDao.getMessageByRecipientId(id);
+    }
+
 }
