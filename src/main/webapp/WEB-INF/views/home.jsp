@@ -15,7 +15,7 @@
             <div class="jumbotron">
                 <h1>${user.username}</h1>
                 <c:if test="${numberOfNotReadMessages > 0}">
-                    <h2>You have <b>${numberOfNotReadMessages}</b> new messages!!!</h2>
+                    <h2><a href="<c:url value="/friends"/>">You have <b>${numberOfNotReadMessages}</b> new messages!!!</a></h2>
                 </c:if>
             </div>
 

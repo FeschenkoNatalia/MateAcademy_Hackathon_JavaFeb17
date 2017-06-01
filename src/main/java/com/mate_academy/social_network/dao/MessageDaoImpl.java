@@ -46,6 +46,15 @@ public class MessageDaoImpl extends AbstractDao<Message> implements MessageDao {
         return (Long) query.list().get(0);
     }
 
+    @Override
+    public void markMessagesAsReadForUsers(Long senderId, Long recipientId) {
+        String hql = "Update Message m set m.status = 'read' where m.sender.id =:senderId and m.recipient.id =:recipientId";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("senderId", senderId);
+        query.setParameter("recipientId", recipientId);
+        query.executeUpdate();
+    }
+
 
 }
 
