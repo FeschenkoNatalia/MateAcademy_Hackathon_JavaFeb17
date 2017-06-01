@@ -24,7 +24,6 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
-    @JsonView(Views.Public.class)
     @RequestMapping("/messages")
     public String showMessages(@RequestParam("recipient") Long recipientId,
                                @CookieValue(value = "userId", required = false) Long userId,
@@ -56,11 +55,8 @@ public class MessageController {
         return "messages";
     }
 
-    private List<Message> getMessagesByRecipientId(Long id) {
-        return messageService.getMessageByRecipientId(id);
-    }
-
     @ResponseBody
+    @JsonView(Views.Public.class)
     @RequestMapping(value = "/messages/update", method = RequestMethod.POST)
     public AjaxResponseBody updateMessages(@RequestBody SearchCriteria searchCriteria) {
         AjaxResponseBody responseBody = new AjaxResponseBody();
@@ -68,5 +64,9 @@ public class MessageController {
             responseBody.setResult(getMessagesByRecipientId(searchCriteria.getRecipientId()));
 
         return responseBody;
+    }
+
+    private List<Message> getMessagesByRecipientId(Long id) {
+        return messageService.getMessageByRecipientId(id);
     }
 }
