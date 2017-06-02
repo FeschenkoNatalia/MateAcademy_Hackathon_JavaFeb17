@@ -41,6 +41,20 @@ public class User implements Serializable {
     @WhereJoinTable(clause = "STATUS = 'TRUE' ")
     private List<User> friends;
 
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinTable(name = "FRIENDS",
+            joinColumns = {@JoinColumn(name = "U2")},
+            inverseJoinColumns = {@JoinColumn(name = "U1")})
+    @WhereJoinTable(clause = "STATUS = 'FALSE' ")
+    private List<User> followers;
+
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinTable(name = "FRIENDS",
+            joinColumns = {@JoinColumn(name = "U1")},
+            inverseJoinColumns = {@JoinColumn(name = "U2")})
+    @WhereJoinTable(clause = "STATUS = 'FALSE' ")
+    private List<User> subscribers;
+
 
     public Long getId() {
         return id;
@@ -102,5 +116,21 @@ public class User implements Serializable {
 
     public void setFriends(List<User> friends) {
         this.friends = friends;
+    }
+
+    public List<User> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
+    }
+
+    public List<User> getSubscribers() {
+        return subscribers;
+    }
+
+    public void setSubscribers(List<User> subscribers) {
+        this.subscribers = subscribers;
     }
 }
