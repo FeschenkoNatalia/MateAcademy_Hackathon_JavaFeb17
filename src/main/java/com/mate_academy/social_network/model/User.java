@@ -1,12 +1,10 @@
 package com.mate_academy.social_network.model;
 
-import org.hibernate.annotations.Where;
 import org.hibernate.annotations.WhereJoinTable;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
