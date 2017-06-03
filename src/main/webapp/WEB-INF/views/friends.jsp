@@ -5,7 +5,7 @@ email.img = "/WEB-INF/resources/bootstrap/img/email.png"
 </head>
 
 <div class="container">
-    <h1><c:out value="${map.1}"/></h1>
+
     <c:forEach var="friend" items="${friends}">
         <div class="jumbotron">
 
@@ -14,8 +14,8 @@ email.img = "/WEB-INF/resources/bootstrap/img/email.png"
             </a></h1>
             <p><a class="btn btn-lg btn-success" href="#" role="button">delete</a></p>
             <p><a class="btn btn-lg btn-success" href="/messages?recipient=${friend.id}" role="button">send massage</a>
-                <c:if test="${numberOfNotReadMessages > 0}">
-                    ${numberOfNotReadMessages}
+                <c:if test="${friendsMessagesMap.get(friend.id) > 0}">
+                    ${friendsMessagesMap.get(friend.id)}
                     <img src="<c:url value="/resources/bootstrap/img/email.png"/>" style="width:24px;height:24px;">
                 </c:if>
             </p>
@@ -23,7 +23,6 @@ email.img = "/WEB-INF/resources/bootstrap/img/email.png"
         </div>
     </c:forEach>
 </div>
-
 
 </body>
 </html>

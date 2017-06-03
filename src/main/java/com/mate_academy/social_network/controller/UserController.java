@@ -31,17 +31,12 @@ public class UserController {
         User user = userService.getUser(userId);
         List<User> friendsList = userService.getFriendsList(user);
         model.addAttribute("friends", friendsList);
-        Map<Integer, Integer> map = new HashMap<>();
-        map.put(1, 2);
-        model.addAttribute("map", map);
+        Map<Long, Long> friendsMessagesMap = new HashMap<>();
         for (User friend : friendsList) {
-            Long numberOfNotReadMessages = messageService.getNumberOfNotReadMessages(userId); //нужен новый метод
-            if (numberOfNotReadMessages > 0) {
-                String attributeName = "numberOfNotReadMessagesFromFriend" + friend.getId();
-                model.addAttribute(attributeName, numberOfNotReadMessages);
-
-            }
+            Long numberOfNotReadMessages = messageService.getNumberOfNotReadMessagesFromFriend(userId, friend.getId());
+            friendsMessagesMap.put(friend.getId(), numberOfNotReadMessages);
         }
+        model.addAttribute("friendsMessagesMap", friendsMessagesMap);
         return "friends";
     }
 
@@ -50,7 +45,7 @@ public class UserController {
                             @RequestParam(value = "user", required = true) Long user2,
                             Model model) {
         Friends friend = userService.addToFriends(userService.getUser(userId), userService.getUser(user2));
-        if(friend != null) {
+        if (friend != null) {
             model.addAttribute("friends", userService.getFriendsList(userService.getUser(userId)));
             return "friends";
         }
@@ -62,7 +57,7 @@ public class UserController {
     @RequestMapping(value = "/accepttofriends")
     public String acceptToFriends(@CookieValue(value = "userId", required = false) Long userId,
                                   @RequestParam(value = "user", required = true) Long userForAdd,
-                                  Model model){
+                                  Model model) {
         userService.acceptFriend(userService.getUser(userId), userService.getUser(userForAdd));
         model.addAttribute("friends", userService.getFriendsList(userService.getUser(userId)));
         return "friends";
@@ -78,7 +73,7 @@ public class UserController {
 
     @RequestMapping(value = "/subscribers")
     public String getSubscribersPage(@CookieValue(value = "userId", required = false) Long userId,
-                                    Model model) {
+                                     Model model) {
         User user = userService.getUser(userId);
         model.addAttribute("subscribers", userService.getSubscribersList(user));
         return "subscribers";
@@ -86,8 +81,8 @@ public class UserController {
 
     @RequestMapping(value = "deletefromfriends")
     public RedirectView deleteFromFriends(@CookieValue(value = "userId", required = false) Long userId,
-                                    @RequestParam(value = "user", required = true) Long userForAdd,
-                                    Model model) {
+                                          @RequestParam(value = "user", required = true) Long userForAdd,
+                                          Model model) {
 
         return new RedirectView("friends");
     }
