@@ -2,6 +2,7 @@ package com.mate_academy.social_network.controller;
 
 import com.mate_academy.social_network.model.Friends;
 import com.mate_academy.social_network.model.User;
+import com.mate_academy.social_network.service.MessageService;
 import com.mate_academy.social_network.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,17 +12,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MessageService messageService;
+
     @RequestMapping("/friends")
     public String getFriendsPage(@CookieValue(value = "userId", required = false) Long userId,
                                  Model model) {
         User user = userService.getUser(userId);
-        model.addAttribute("friends", userService.getFriendsList(user));
+        List<User> friendsList = userService.getFriendsList(user);
+        model.addAttribute("friends", friendsList);
+        Map<Long, Long> friendsMessagesMap = new HashMap<>();
+        for (User friend : friendsList) {
+            Long numberOfNotReadMessages = messageService.getNumberOfNotReadMessagesFromFriend(userId, friend.getId());
+            friendsMessagesMap.put(friend.getId(), numberOfNotReadMessages);
+        }
+        model.addAttribute("friendsMessagesMap", friendsMessagesMap);
         return "friends";
     }
 
@@ -30,7 +45,7 @@ public class UserController {
                             @RequestParam(value = "user", required = true) Long user2,
                             Model model) {
         Friends friend = userService.addToFriends(userService.getUser(userId), userService.getUser(user2));
-        if(friend != null) {
+        if (friend != null) {
             model.addAttribute("friends", userService.getFriendsList(userService.getUser(userId)));
             return "friends";
         }
@@ -42,7 +57,7 @@ public class UserController {
     @RequestMapping(value = "/accepttofriends")
     public RedirectView acceptToFriends(@CookieValue(value = "userId", required = false) Long userId,
                                   @RequestParam(value = "user", required = true) Long userForAdd,
-                                  Model model){
+                                  Model model) {
         userService.acceptFriend(userService.getUser(userId), userService.getUser(userForAdd));
         return new RedirectView("friends");
     }
@@ -57,7 +72,7 @@ public class UserController {
 
     @RequestMapping(value = "/subscribers")
     public String getSubscribersPage(@CookieValue(value = "userId", required = false) Long userId,
-                                    Model model) {
+                                     Model model) {
         User user = userService.getUser(userId);
         model.addAttribute("subscribers", userService.getSubscribersList(user));
         return "subscribers";
@@ -65,8 +80,8 @@ public class UserController {
 
     @RequestMapping(value = "deletefromfriends")
     public RedirectView deleteFromFriends(@CookieValue(value = "userId", required = false) Long userId,
-                                    @RequestParam(value = "user", required = true) Long userForAdd,
-                                    Model model) {
+                                          @RequestParam(value = "user", required = true) Long userForAdd,
+                                          Model model) {
 
         return new RedirectView("friends");
     }

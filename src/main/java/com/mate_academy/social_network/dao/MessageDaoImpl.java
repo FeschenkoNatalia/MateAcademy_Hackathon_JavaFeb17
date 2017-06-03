@@ -47,12 +47,32 @@ public class MessageDaoImpl extends AbstractDao<Message> implements MessageDao {
     }
 
     @Override
+    public Long getNumberOfNotReadMessagesFromFriend(Long recipient, Long sender) {
+        String hql = "Select count(m.id) from Message m where m.recipient.id =:recipientId and m.sender.id =:senderId and m.status = 'new'";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("recipientId", recipient);
+        query.setParameter("senderId", sender);
+        return (Long) query.list().get(0);
+    }
+
+    @Override
     public List<Message> getMessageByRecipientId(Long id) {
         String hql = "from Message m where m.recipient.id =:recipientId";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("recipientId", id);
         return query.list();
     }
+
+    @Override
+    public void markMessagesAsReadForUsers(Long senderId, Long recipientId) {
+        String hql = "Update Message m set m.status = 'read' where m.sender.id =:senderId and m.recipient.id =:recipientId";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("senderId", senderId);
+        query.setParameter("recipientId", recipientId);
+        query.executeUpdate();
+    }
+
+
 }
 
 

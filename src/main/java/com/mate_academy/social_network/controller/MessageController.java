@@ -31,6 +31,7 @@ public class MessageController {
         User sender = userService.getUser(userId);
         User recipient = userService.getUser(recipientId);
         List<Message> messageList = messageService.getAllMessages(sender.getId(), recipient.getId());
+        messageService.markMessagesAsReadForUsers(recipient.getId(), sender.getId());
         model.addAttribute("sender", sender);
         model.addAttribute("recipient", recipient);
         model.addAttribute("messages", messageList);
@@ -39,19 +40,18 @@ public class MessageController {
     }
 
     @RequestMapping(value = "/messages", method = RequestMethod.POST)
-    public String sendMessage(@ModelAttribute("newMessage") Message message, Model model) {
-
-        if (message != null) {
+    public String sendMessage(@ModelAttribute("newMessage") Message message,
+                              Model model) {
+        if (message != null && message.getText() != "") {
             messageService.addMessage(message);
-            User recipient = userService.getUser(message.getRecipient().getId());
-            User sender = userService.getUser(message.getSender().getId());
-            List<Message> messageList = messageService.getAllMessages(sender.getId(), recipient.getId());
-            model.addAttribute("recipient", recipient);
-            model.addAttribute("sender", sender);
-            model.addAttribute("messages", messageList);
-            model.addAttribute("newMessage", new Message());
         }
-
+        User sender = userService.getUser(message.getSender().getId());
+        User recipient = userService.getUser(message.getRecipient().getId());
+        List<Message> messageList = messageService.getAllMessages(sender.getId(), recipient.getId());
+        model.addAttribute("recipient", recipient);
+        model.addAttribute("sender", sender);
+        model.addAttribute("messages", messageList);
+        model.addAttribute("newMessage", new Message());
         return "messages";
     }
 

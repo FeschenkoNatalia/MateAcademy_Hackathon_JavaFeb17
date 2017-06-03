@@ -12,5 +12,9 @@ public interface MessageDao extends GenericDao<Message> {
 
     public Long getNumberOfNotReadMessages(Long userId);
 
+    void markMessagesAsReadForUsers(Long senderId, Long recipientId);
+
     List<Message> getMessageByRecipientId(Long id);
+
+    Long getNumberOfNotReadMessagesFromFriend(Long recipient, Long sender);
 }
