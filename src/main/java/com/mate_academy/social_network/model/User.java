@@ -1,8 +1,13 @@
 package com.mate_academy.social_network.model;
 
+import org.hibernate.annotations.Where;
+import org.hibernate.annotations.WhereJoinTable;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -20,6 +25,22 @@ public class User implements Serializable {
 
     @Column(name = "email")
     private String email;
+
+    /*@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "users", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "id")})
+    private List<User> friends;*/
+
+    /*@OneToMany(mappedBy = "id", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JoinTable(name = "users", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "id")})
+    private List<User> friends;*/
+
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinTable(name = "FRIENDS",
+        joinColumns = {@JoinColumn(name = "U1")},
+        inverseJoinColumns = {@JoinColumn(name = "U2")})
+    @WhereJoinTable(clause = "STATUS = 'TRUE' ")
+    private List<User> friends;
+
 
     public Long getId() {
         return id;
@@ -73,5 +94,13 @@ public class User implements Serializable {
         result = 31 * result + getPassword().hashCode();
         result = 31 * result + getEmail().hashCode();
         return result;
+    }
+
+    public List<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
     }
 }

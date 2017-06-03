@@ -22,29 +22,25 @@
 <div id="feedback"></div>
 
 
-<form:form method="post" action="/messages" modelAttribute="newMessage" id="search-form">
-    <input type=hidden class="form-control" value="${recipient.id}">
+<form:form method="post" action="/messages" modelAttribute="newMessage" id="messages-form">
     <form:input path="text" id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
     <form:input path="status" id="btn-input" type="hidden" value="new" class="form-control input-sm"/>
     <form:input path="sender.id" value="${sender.id}" id="btn-input" type="hidden" class="form-control input-sm"/>
-    <form:input path="recipient.id" value="${recipient.id}" id="btn-input" type="hidden" class="form-control input-sm"/>
+    <form:input path="recipient.id" value="${recipient.id}" id="recipientId" type="hidden" class="form-control input-sm"/>
 
     <button type="submit" class="btn btn-warning btn-sm" id="btn-chat">Send</button>
 </form:form>
 
 <script>
     jQuery(document).ready(function($) {
-        $("#search-form").ondisplay(function(event) {
+        $("#messages-form").setInterval(searchViaAjax(), 2000)
 
             event.preventDefault();
-            searchViaAjax();
-
-        });
     });
 
     function searchViaAjax() {
         var data = {}
-        data["query"] = $("#query").val();
+        data["recipientId"] = $("#recipientId").val();
 
         $.ajax({
             type : "POST",

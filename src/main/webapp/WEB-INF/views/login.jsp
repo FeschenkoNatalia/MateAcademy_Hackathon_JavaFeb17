@@ -11,10 +11,10 @@
 </head>
 <body>
 <div class="container">
-    <c:if test="${not empty logout}">
-        <div class="msg">${logout}</div>
-    </c:if>
     <form:form class="form-signin" method="post" action="/login" modelAttribute="user">
+        <c:if test="${not empty logout}">
+            <div class="msg" style="color: red">${logout}</div>
+        </c:if>
         <c:if test="${not empty error}">
             <div class="msg"><h4 style="color: red">${error}</h4></div>
         </c:if>
