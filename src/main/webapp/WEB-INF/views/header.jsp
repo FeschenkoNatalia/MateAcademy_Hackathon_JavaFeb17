@@ -26,6 +26,8 @@
                 </div>
                 <button type="submit" class="btn btn-success">Search</button>
             </form>
+            <a class="btn btn-success navbar-right" href="/logout" role="button">logout</a>
+
         </div>
     </div>
 </nav>

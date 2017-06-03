@@ -53,4 +53,12 @@ public class LoginController {
         return new RedirectView("login");
     }
 
+    @RequestMapping(value = "/logout")
+    public RedirectView logout(HttpServletResponse response, Model model){
+        Cookie cookie = new Cookie("userId", "");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return new RedirectView("login?logout");
+    }
+
 }
