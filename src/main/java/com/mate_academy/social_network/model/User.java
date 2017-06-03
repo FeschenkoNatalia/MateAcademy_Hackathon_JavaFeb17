@@ -26,14 +26,6 @@ public class User implements Serializable {
     @Column(name = "email")
     private String email;
 
-    /*@ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "users", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "id")})
-    private List<User> friends;*/
-
-    /*@OneToMany(mappedBy = "id", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    //@JoinTable(name = "users", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "id")})
-    private List<User> friends;*/
-
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(name = "FRIENDS",
         joinColumns = {@JoinColumn(name = "U1")},

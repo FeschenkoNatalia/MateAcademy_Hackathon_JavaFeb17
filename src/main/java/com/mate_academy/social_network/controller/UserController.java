@@ -40,12 +40,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/accepttofriends")
-    public String acceptToFriends(@CookieValue(value = "userId", required = false) Long userId,
+    public RedirectView acceptToFriends(@CookieValue(value = "userId", required = false) Long userId,
                                   @RequestParam(value = "user", required = true) Long userForAdd,
                                   Model model){
         userService.acceptFriend(userService.getUser(userId), userService.getUser(userForAdd));
-        model.addAttribute("friends", userService.getFriendsList(userService.getUser(userId)));
-        return "friends";
+        return new RedirectView("friends");
     }
 
     @RequestMapping(value = "/followers")

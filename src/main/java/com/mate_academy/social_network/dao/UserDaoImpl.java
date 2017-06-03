@@ -38,8 +38,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     @Override
     public List<User> getUsersFriends(User user) {
         String hql = "select b from User a join a.friends b where a.id =:userId";
-        /*Criteria c = sessionFactory.getCurrentSession().createCriteria(User.class);
-        c.add(Restrictions.eq("id", user.getId()));*/
         return getListFromQuery(hql, user.getId());
     }
 
@@ -60,21 +58,32 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         try {
             Session session = sessionFactory.getCurrentSession();
             session.save(friends);
-        } catch (Throwable ex) {
+        } catch (Exception ex) {
             return null;
         }
         return friends;
     }
 
     @Override
-    public Friends updateFriends(Friends friends) {
-        try {
+    public Friends updateFriends(User user1, User user2) {
+        /*try {
             Session session = sessionFactory.getCurrentSession();
             session.update(friends);
         } catch (Exception ex) {
             return null;
         }
-        return friends;
+        return friends;*/
+
+        Session session = sessionFactory.getCurrentSession();
+        User user = (User) session.load(User.class, user1.getId());
+        user.getFollowers().remove(user2);
+        user.getFriends().add(user2);
+        session.update(user);
+        //read(User.class, user1.getId()).getFriends().add(user2);
+        //read(User.class, user2.getId()).getFriends().add(user1);
+        /*session.update(user1);
+        session.update(user2);*/
+        return null;
     }
 
     private List<User> getListFromQuery(String hql, Long userId) {
