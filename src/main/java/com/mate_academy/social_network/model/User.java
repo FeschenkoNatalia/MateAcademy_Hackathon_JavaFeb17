@@ -26,20 +26,26 @@ public class User implements Serializable {
     @Column(name = "email")
     private String email;
 
-    /*@ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "users", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "id")})
-    private List<User> friends;*/
-
-    /*@OneToMany(mappedBy = "id", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    //@JoinTable(name = "users", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "id")})
-    private List<User> friends;*/
-
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(name = "FRIENDS",
         joinColumns = {@JoinColumn(name = "U1")},
         inverseJoinColumns = {@JoinColumn(name = "U2")})
     @WhereJoinTable(clause = "STATUS = 'TRUE' ")
     private List<User> friends;
+
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinTable(name = "FRIENDS",
+            joinColumns = {@JoinColumn(name = "U2")},
+            inverseJoinColumns = {@JoinColumn(name = "U1")})
+    @WhereJoinTable(clause = "STATUS = 'FALSE' ")
+    private List<User> followers;
+
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinTable(name = "FRIENDS",
+            joinColumns = {@JoinColumn(name = "U1")},
+            inverseJoinColumns = {@JoinColumn(name = "U2")})
+    @WhereJoinTable(clause = "STATUS = 'FALSE' ")
+    private List<User> subscribers;
 
 
     public Long getId() {
@@ -102,5 +108,21 @@ public class User implements Serializable {
 
     public void setFriends(List<User> friends) {
         this.friends = friends;
+    }
+
+    public List<User> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<User> followers) {
+        this.followers = followers;
+    }
+
+    public List<User> getSubscribers() {
+        return subscribers;
+    }
+
+    public void setSubscribers(List<User> subscribers) {
+        this.subscribers = subscribers;
     }
 }

@@ -11,7 +11,7 @@ public interface UserDao extends GenericDao<User>{
 
     User getUserWithPass(User user);
 
-    List<User> getUsersFriends(User user);
+    List getUsersFriends(User user);
 
     List<User> getUsersFollowers(User user);
 
@@ -19,5 +19,5 @@ public interface UserDao extends GenericDao<User>{
 
     Friends addToFriends(Friends friends);
 
-    Friends updateFriends(Friends friends);
+    Friends updateFriends(User user1, User user2);
 }

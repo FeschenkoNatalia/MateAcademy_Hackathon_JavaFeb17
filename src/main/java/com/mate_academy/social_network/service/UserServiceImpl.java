@@ -65,11 +65,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Friends acceptFriend(User user1, User user2) {
-        Friends friends = new Friends();
+        /*getFriendsList(user1).add(user2);
+        getFriendsList(user2).add(user1);
+        *//*Friends friends = new Friends();
         friends.setUser1(user1);
         friends.setUser2(user2);
-        friends.setStatus(true);
-        return userDao.updateFriends(friends);
+        friends.setStatus(true);*//*
+        userDao.update(user1);
+        userDao.update(user2);*/
+        userDao.updateFriends(user1, user2);
+        return null;
     }
 
     @Override
